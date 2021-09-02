@@ -1,8 +1,10 @@
 import express from "express"; // importing
+import axios from "axios";
 
 const app = express(); // creating an app, which is the server
 const PORT = 8000; // which port the server will run on
 
+const postCode = "SW10 0EF";
 const concert = [
   {
     artist: "Disclourse",
@@ -18,11 +20,20 @@ const concert = [
   },
 ];
 
-// https://stackoverflow.com/questions/39301227/external-api-calls-with-express-node-js-and-require-module
-// https://gawdiseattle.gitbook.io/wdi/05-node-express/00readme-1/03apis-axios
-
 app.get("/", (req, res) => res.send("Express + TypeScript Server")); //defining your handler
 app.get("/api/concerts", (req, res) => res.json(concert));
+
+app.get("/api/postcode", (req, res) => {
+  axios
+    .get(`https://api.postcodes.io/postcodes/${postCode}`)
+    .then((response) => {
+      res.json(response.data);
+    })
+    .catch((error) => {
+      res.json(error);
+    });
+});
+
 app.listen(PORT, () => {
   console.log(`⚡️[server]: Server is running at https://localhost:${PORT}`);
 });
