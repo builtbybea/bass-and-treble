@@ -1,5 +1,6 @@
 import express from "express"; // importing
 import axios from "axios";
+import "./config";
 
 const app = express(); // creating an app, which is the server
 const PORT = 8000; // which port the server will run on
@@ -20,12 +21,28 @@ const concert = [
   },
 ];
 
+const API_KEY = process.env.TICKET_MASTER_API_KEY;
+const city = "London";
+
 app.get("/", (req, res) => res.send("Express + TypeScript Server")); //defining your handler
 app.get("/api/concerts", (req, res) => res.json(concert));
 
 app.get("/api/postcode", (req, res) => {
   axios
     .get(`https://api.postcodes.io/postcodes/${postCode}`)
+    .then((response) => {
+      res.json(response.data);
+    })
+    .catch((error) => {
+      res.json(error);
+    });
+});
+
+app.get("/api/events", (req, res) => {
+  axios
+    .get(
+      `https://app.ticketmaster.com/discovery/v2/events.json?apikey=${API_KEY}&city=${city}`
+    )
     .then((response) => {
       res.json(response.data);
     })
