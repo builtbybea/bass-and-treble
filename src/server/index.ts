@@ -44,7 +44,7 @@ app.get("/api/events", (req, res) => {
       `https://app.ticketmaster.com/discovery/v2/events.json?apikey=${API_KEY}&city=${city}`
     )
     .then((response) => {
-      res.json(response.data);
+      res.json(response.data._embedded.events);
     })
     .catch((error) => {
       res.json(error);
