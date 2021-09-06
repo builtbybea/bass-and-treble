@@ -11,14 +11,22 @@ const postCode = "SW10 0EF";
 const API_KEY = process.env.TICKET_MASTER_API_KEY;
 const city = "London";
 
-const geoHash = geohash.encode(37.8324, 112.5584);
-console.log(geoHash);
+let lat: any;
+let long: any;
+let precision = 5;
 
 app.get("/", (req, res) => res.send("Express + TypeScript Server")); //defining your handler
 app.get("/api/concerts", (req, res) => {
   const postcode = req.query.postcode;
 
-  res.send(postcode);
+  axios
+    .get(`https://api.postcodes.io/postcodes/${postcode}`)
+    .then((response) => {
+      long = response.data.result.longitude;
+      lat = response.data.result.latitude;
+      const geoHash = geohash.encode(lat, long, precision);
+      res.send(geoHash);
+    });
 });
 
 app.get("/api/postcode", (req, res) => {
