@@ -1,6 +1,7 @@
 import express from "express"; // importing
 import axios from "axios";
 import "./config";
+import geohash from "ngeohash";
 
 const app = express(); // creating an app, which is the server
 const PORT = 8000; // which port the server will run on
@@ -9,6 +10,9 @@ const postCode = "SW10 0EF";
 
 const API_KEY = process.env.TICKET_MASTER_API_KEY;
 const city = "London";
+
+const geoHash = geohash.encode(37.8324, 112.5584);
+console.log(geoHash);
 
 app.get("/", (req, res) => res.send("Express + TypeScript Server")); //defining your handler
 app.get("/api/concerts", (req, res) => {
