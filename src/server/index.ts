@@ -28,7 +28,14 @@ app.get("/api/concerts", (req, res) => {
       const precision = 5;
       const geoHash = geohash.encode(lat, long, precision);
 
-      res.send(geoHash);
+      const radius = 2;
+      const unit = "miles";
+
+      const getNearestConcert = await axios.get(
+        `https://app.ticketmaster.com/discovery/v2/events.json?apikey=${API_KEY}&radius=${radius}&unit=${unit}&geoPoint=${geoHash}`
+      );
+      const concertDetails = getNearestConcert.data;
+      res.json(concertDetails);
     } catch (error) {
       console.log(error);
     }
