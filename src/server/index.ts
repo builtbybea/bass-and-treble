@@ -14,10 +14,6 @@ const city = "London";
 app.get("/", (req, res) => res.send("Express + TypeScript Server")); //defining your handler
 app.get("/api/concerts", (req, res) => {
   const postcode = req.query.postcode;
-  // let lat: any;
-  // let long: any;
-  // let precision = 5;
-
   const fetchData = async () => {
     try {
       const response = await axios.get(
