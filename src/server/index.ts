@@ -6,8 +6,6 @@ import geohash from "ngeohash";
 const app = express(); // creating an app, which is the server
 const PORT = 8000; // which port the server will run on
 
-const postCode = "SW10 0EF";
-
 const API_KEY = process.env.TICKET_MASTER_API_KEY;
 const city = "London";
 
@@ -37,17 +35,6 @@ app.get("/api/concerts", (req, res) => {
     }
   };
   fetchData();
-});
-
-app.get("/api/postcode", (req, res) => {
-  axios
-    .get(`https://api.postcodes.io/postcodes/${postCode}`)
-    .then((response) => {
-      res.json(response.data);
-    })
-    .catch((error) => {
-      res.json(error);
-    });
 });
 
 app.get("/api/events", (req, res) => {
