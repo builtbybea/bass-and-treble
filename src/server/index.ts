@@ -9,7 +9,8 @@ const PORT = 8000; // which port the server will run on
 const API_KEY = process.env.TICKET_MASTER_API_KEY;
 const city = "London";
 
-app.get("/", (req, res) => res.send("Express + TypeScript Server")); //defining your handler
+app.get("/ping", (req, res) => res.send("pong")); //defining your handler
+
 app.get("/api/concerts", (req, res) => {
   const postcode = req.query.postcode;
   const fetchData = async () => {
