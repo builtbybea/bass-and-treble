@@ -38,19 +38,6 @@ app.get("/api/concerts", (req, res) => {
   fetchData();
 });
 
-app.get("/api/events", (req, res) => {
-  axios
-    .get(
-      `https://app.ticketmaster.com/discovery/v2/events.json?apikey=${API_KEY}&city=${city}`
-    )
-    .then((response) => {
-      res.json(response.data._embedded.events);
-    })
-    .catch((error) => {
-      res.json(error);
-    });
-});
-
 app.listen(PORT, () => {
   console.log(`⚡️[server]: Server is running at https://localhost:${PORT}`);
 });
