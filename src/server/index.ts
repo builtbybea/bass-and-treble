@@ -7,7 +7,6 @@ const app = express(); // creating an app, which is the server
 const PORT = 8000; // which port the server will run on
 
 const API_KEY = process.env.TICKET_MASTER_API_KEY;
-const city = "London";
 
 app.get("/ping", (req, res) => res.send("pong")); //defining your handler
 
