@@ -1,13 +1,10 @@
 import express from "express"; // importing
-import { getCoordinates } from "../server/api/data";
-import axios from "axios";
+import { getCoordinates, getNearestConcert } from "../server/api/data";
 import "./config";
 import geohash from "ngeohash";
 
 const app = express(); // creating an app, which is the server
 const PORT = 8000; // which port the server will run on
-
-const API_KEY = process.env.TICKET_MASTER_API_KEY;
 
 app.get("/ping", (req, res) => res.send("pong")); //defining your handler
 
@@ -15,31 +12,16 @@ app.get("/api/concerts", async (req, res) => {
   const postcode = req.query.postcode;
 
   const coordinates = await getCoordinates(postcode);
-  res.json(coordinates);
+  const precision = 5;
+  const geoHash = geohash.encode(
+    coordinates.latitude,
+    coordinates.longitude,
+    precision
+  );
 
-  // const fetchData = async () => {
-  //   try {
-  //     const response = await axios.get(
-  //       `https://api.postcodes.io/postcodes/${postcode}`
-  //     );
-  //     const lat = response.data.result.latitude;
-  //     const long = response.data.result.longitude;
-  //     const precision = 5;
-  //     const geoHash = geohash.encode(lat, long, precision);
+  const listOfConcerts = await getNearestConcert(2, "miles", geoHash);
 
-  //     const radius = 2;
-  //     const unit = "miles";
-
-  //     const getNearestConcert = await axios.get(
-  //       `https://app.ticketmaster.com/discovery/v2/events.json?apikey=${API_KEY}&radius=${radius}&unit=${unit}&geoPoint=${geoHash}`
-  //     );
-  //     const concertDetails = getNearestConcert.data;
-  //     res.json(concertDetails);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-  // fetchData();
+  res.json(listOfConcerts);
 });
 
 app.listen(PORT, () => {
