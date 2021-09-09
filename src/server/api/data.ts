@@ -6,10 +6,11 @@ interface Coordinates {
 }
 
 export const getCoordinates = async (postcode: any): Promise<Coordinates> => {
-  const response = await axios.get(`https://api.postcodes.io/postcodes/e143rn`);
+  const response = await axios.get(
+    `https://api.postcodes.io/postcodes/${postcode}`
+  );
 
   console.log(response);
-
   const lat: number = response.data.result.latitude;
   const long: number = response.data.result.longitude;
 
@@ -18,3 +19,6 @@ export const getCoordinates = async (postcode: any): Promise<Coordinates> => {
     longitude: long,
   };
 };
+
+// const results = getCoordinates("E14 3RN");
+// console.log(results);
