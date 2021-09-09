@@ -11,16 +11,11 @@ const API_KEY = process.env.TICKET_MASTER_API_KEY;
 
 app.get("/ping", (req, res) => res.send("pong")); //defining your handler
 
-app.get("/api/concerts", (req, res) => {
+app.get("/api/concerts", async (req, res) => {
   const postcode = req.query.postcode;
 
-  const test = getCoordinates(postcode);
-  res.json(test);
-
-  // testing function below
-  // const test = getCoordinates("e14 3rn");
-  // console.log(test);
-  // res.json(test);
+  const coordinates = await getCoordinates(postcode);
+  res.json(coordinates);
 
   // const fetchData = async () => {
   //   try {

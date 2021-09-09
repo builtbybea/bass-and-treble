@@ -19,6 +19,3 @@ export const getCoordinates = async (postcode: any): Promise<Coordinates> => {
     longitude: long,
   };
 };
-
-// const results = getCoordinates("E14 3RN");
-// console.log(results);
