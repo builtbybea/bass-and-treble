@@ -26,7 +26,7 @@ export const getNearestConcert = async (
   radius: number,
   unit: string,
   geohash: any
-): Promise<[]> => {
+): Promise<{}> => {
   const response = await axios.get(
     `https://app.ticketmaster.com/discovery/v2/events.json?apikey=${API_KEY}&radius=${radius}&unit=${unit}&geoPoint=${geohash}`
   );
