@@ -8,7 +8,9 @@ interface Coordinates {
 
 const API_KEY = process.env.TICKET_MASTER_API_KEY;
 
-export const getCoordinates = async (postcode: any): Promise<Coordinates> => {
+export const getCoordinates = async (
+  postcode: string
+): Promise<Coordinates> => {
   const response = await axios.get(
     `https://api.postcodes.io/postcodes/${postcode}`
   );

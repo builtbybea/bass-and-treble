@@ -9,7 +9,7 @@ const PORT = 8000; // which port the server will run on
 app.get("/ping", (req, res) => res.send("pong")); //defining your handler
 
 app.get("/api/concerts", async (req, res) => {
-  const postcode = req.query.postcode;
+  const postcode: string = req.query.postcode as string;
 
   const coordinates = await getCoordinates(postcode);
   const precision = 5;
