@@ -15,12 +15,12 @@ export const getCoordinates = async (
     `https://api.postcodes.io/postcodes/${postcode}`
   );
 
-  const lat: number = response.data.result.latitude;
-  const long: number = response.data.result.longitude;
+  const { latitude, longitude }: { latitude: number; longitude: number } =
+    response.data.result;
 
   return {
-    latitude: lat,
-    longitude: long,
+    latitude: latitude,
+    longitude: longitude,
   };
 };
 
