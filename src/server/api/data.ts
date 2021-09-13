@@ -14,7 +14,7 @@ interface TicketmasterResponse {
   _embedded: any;
 }
 
-const API_KEY = process.env.TICKET_MASTER_API_KEY;
+const API_KEY = process.env.TICKETMASTER_API_KEY;
 
 export const getCoordinates = async (
   postcode: string
