@@ -6,12 +6,16 @@ interface Coordinates {
   longitude: number;
 }
 
+interface PostcodeResponse {
+  result: { latitude: number; longitude: number };
+}
+
 const API_KEY = process.env.TICKET_MASTER_API_KEY;
 
 export const getCoordinates = async (
   postcode: string
 ): Promise<Coordinates> => {
-  const response = await axios.get(
+  const response = await axios.get<PostcodeResponse>(
     `https://api.postcodes.io/postcodes/${postcode}`
   );
 
